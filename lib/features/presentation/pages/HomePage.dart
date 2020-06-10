@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:number_trivia/features/presentation/widgets/bottom_navbar_widget.dart';
 
 import '../../../injection_container.dart';
 import '../bloc/bottomNavigation/bottomnavigation_bloc.dart';
+import '../widgets/bottom_navbar_widget.dart';
 import 'BlogPage.dart';
 import 'NumberTriviaPage.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
 
   @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  BottomnavigationBloc bloc;
+  @override
+  void initState() {
+    bloc = sl<BottomnavigationBloc>();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final bloc = sl<BottomnavigationBloc>();
     return Scaffold(
         appBar: AppBar(
           title: Text("Number Trivia"),
@@ -34,5 +45,11 @@ class HomePage extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: BuildBottomNavigationbar(bloc: bloc));
+  }
+
+  @override
+  void dispose() {
+    bloc.close();
+    super.dispose();
   }
 }

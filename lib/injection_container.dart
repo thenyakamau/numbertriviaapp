@@ -17,10 +17,23 @@ import 'features/presentation/bloc/numbertrivia_bloc.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  await _initNumberTrivia();
+  _initNumberTrivia();
+  _initializeBottomNavBar();
+
+  //! Core
+  sl.registerLazySingleton(() => InputConverter());
+  sl.registerLazySingleton<NetworkInfo>(
+    () => NetworkInfoImpl(sl()),
+  );
+  //!External
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  final SharedPreferences prefs = await _prefs;
+  sl.registerLazySingleton(() => prefs);
+  sl.registerLazySingleton(() => http.Client());
+  sl.registerLazySingleton(() => DataConnectionChecker());
 }
 
-Future<void> _initNumberTrivia() async {
+void _initNumberTrivia() {
   //! Features - Number Trivia
   //instanciates new bloc instance on page load
   sl.registerFactory(
@@ -51,18 +64,6 @@ Future<void> _initNumberTrivia() async {
   sl.registerLazySingleton<NumberTriviaLocalDataSource>(
     () => NumberTrivialLocalDataSourceImpl(sharedPreferences: sl()),
   );
-
-  //! Core
-  sl.registerLazySingleton(() => InputConverter());
-  sl.registerLazySingleton<NetworkInfo>(
-    () => NetworkInfoImpl(sl()),
-  );
-  //!External
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  final SharedPreferences prefs = await _prefs;
-  sl.registerLazySingleton(() => prefs);
-  sl.registerLazySingleton(() => http.Client());
-  sl.registerLazySingleton(() => DataConnectionChecker());
 }
 
 void _initializeBottomNavBar() {

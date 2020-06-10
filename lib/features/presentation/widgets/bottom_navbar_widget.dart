@@ -23,7 +23,7 @@ class _BottomNavigationbarState extends State<BuildBottomNavigationbar> {
     return Theme(
       data: Theme.of(context).copyWith(
           // sets the background color of the `BottomNavigationBar`
-          canvasColor: Colors.green,
+          canvasColor: Theme.of(context).accentColor,
           // sets the active color of the `BottomNavigationBar` if `Brightness` is light
           primaryColor: Colors.red,
           textTheme: Theme.of(context)
