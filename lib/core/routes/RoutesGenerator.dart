@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../features/presentation/pages/NumberTriviaPage.dart';
+import '../../features/presentation/pages/HomePage.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -10,7 +10,7 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
-        return CupertinoPageRoute(builder: (_) => NumberTriviaPage());
+        return CupertinoPageRoute(builder: (_) => HomePage());
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();

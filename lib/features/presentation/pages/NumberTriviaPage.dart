@@ -8,12 +8,7 @@ import '../widgets/widgets.dart';
 class NumberTriviaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Number Trivia"),
-      ),
-      body: SingleChildScrollView(child: buildBody(context)),
-    );
+    return SingleChildScrollView(child: buildBody(context));
   }
 
   BlocProvider<NumbertriviaBloc> buildBody(BuildContext context) {
