@@ -1,16 +1,26 @@
-class BlogPostsModel {
-  int userId;
-  int id;
-  String title;
-  String body;
+import 'package:number_trivia/features/domain/entities/BlogPostApi.dart';
+import 'package:meta/meta.dart';
 
-  BlogPostsModel({this.userId, this.id, this.title, this.body});
+class BlogPostsModel extends BlogPostApi {
+  final int userId;
+  final int id;
+  final String title;
+  final String body;
 
-  BlogPostsModel.fromJson(Map<String, dynamic> json) {
-    userId = json['userId'];
-    id = json['id'];
-    title = json['title'];
-    body = json['body'];
+  BlogPostsModel({
+    @required this.userId,
+    @required this.id,
+    @required this.title,
+    @required this.body,
+  }) : super(userId: userId, id: id, title: title, body: body);
+
+  factory BlogPostsModel.fromJson(Map<String, dynamic> json) {
+    return BlogPostsModel(
+      userId: json['userId'],
+      id: json['id'],
+      title: json['title'],
+      body: json['body'],
+    );
   }
 
   Map<String, dynamic> toJson() {

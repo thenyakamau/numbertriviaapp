@@ -7,6 +7,7 @@ import 'package:meta/meta.dart';
 
 import '../../../core/errors/Failures.dart';
 import '../../../core/usecases/UseCase.dart';
+import '../../../core/utils/Constants.dart';
 import '../../../core/utils/InputConverter.dart';
 import '../../domain/entities/NumberTrivia.dart';
 import '../../domain/usecases/GetConcreteNumberTrivia.dart';
@@ -14,10 +15,6 @@ import '../../domain/usecases/GetRandomNumberTrivia.dart';
 
 part 'numbertrivia_event.dart';
 part 'numbertrivia_state.dart';
-
-const String SERVER_FAILURE_MESSAGE = "Server Failure";
-const String CACHE_FAILURE_MESSAGE = "Cache Failure";
-const String INPUT_FAILURE_MESSAGE = "Input Failure";
 
 class NumbertriviaBloc extends Bloc<NumbertriviaEvent, NumbertriviaState> {
   final GetConcreteNumberTrivia concreteNumberTrivia;

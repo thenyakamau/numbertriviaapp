@@ -12,6 +12,7 @@ class NumberTriviaPage extends StatelessWidget {
   }
 
   BlocProvider<NumbertriviaBloc> buildBody(BuildContext context) {
+    double height = MediaQuery.of(context).size.height / 3;
     return BlocProvider(
       create: (_) => sl<NumbertriviaBloc>(),
       child: Center(
@@ -26,7 +27,7 @@ class NumberTriviaPage extends StatelessWidget {
                   if (state is NumbertriviaInitial) {
                     return MessageDisplay(message: "Start searching!");
                   } else if (state is NumbertriviaLoading) {
-                    return LoadingWidget();
+                    return LoadingWidget(height: height);
                   } else if (state is NumbertriviaLoaded) {
                     return TriviaDisplay(numberTrivia: state.numberTrivia);
                   } else if (state is NumbertriviaError) {

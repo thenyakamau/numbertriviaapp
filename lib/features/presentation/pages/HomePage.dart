@@ -25,26 +25,27 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Number Trivia"),
-        ),
-        body: BlocProvider<BottomnavigationBloc>(
-          create: (_) => bloc,
-          child: SingleChildScrollView(
-            child: BlocBuilder<BottomnavigationBloc, BottomnavigationState>(
-              builder: (context, state) {
-                if (state is BlogState) {
-                  return BlogPage();
-                } else if (state is NumberTriviaState) {
-                  return NumberTriviaPage();
-                } else {
-                  return null;
-                }
-              },
-            ),
+      appBar: AppBar(
+        title: Text("Number Trivia"),
+      ),
+      body: BlocProvider<BottomnavigationBloc>(
+        create: (_) => bloc,
+        child: Container(
+          child: BlocBuilder<BottomnavigationBloc, BottomnavigationState>(
+            builder: (context, state) {
+              if (state is BlogState) {
+                return BlogPage();
+              } else if (state is NumberTriviaState) {
+                return NumberTriviaPage();
+              } else {
+                return null;
+              }
+            },
           ),
         ),
-        bottomNavigationBar: BuildBottomNavigationbar(bloc: bloc));
+      ),
+      bottomNavigationBar: BuildBottomNavigationbar(bloc: bloc),
+    );
   }
 
   @override
