@@ -15,7 +15,7 @@ class BlogPostLoadingState extends BlogpostapiblocState {
 }
 
 class BlogPostLoadedState extends BlogpostapiblocState {
-  final BlogPostApi blogPostApi;
+  final List<BlogPostApi> blogPostApi;
 
   BlogPostLoadedState({@required this.blogPostApi});
 

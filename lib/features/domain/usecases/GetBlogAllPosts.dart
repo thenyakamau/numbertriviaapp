@@ -6,12 +6,12 @@ import '../../../core/usecases/UseCase.dart';
 import '../entities/BlogPostApi.dart';
 import '../repositories/BlogPostRepository.dart';
 
-class GetAllBlogPosts extends UseCase<BlogPostApi, NoParams> {
+class GetAllBlogPosts extends UseCase<List<BlogPostApi>, NoParams> {
   final BlogPostRepository repository;
 
   GetAllBlogPosts({@required this.repository});
   @override
-  Future<Either<Failure, BlogPostApi>> call(NoParams noParams) async {
+  Future<Either<Failure, List<BlogPostApi>>> call(NoParams noParams) async {
     return await repository.getPosts();
   }
 }

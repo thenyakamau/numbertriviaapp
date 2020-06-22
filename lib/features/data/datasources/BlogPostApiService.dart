@@ -1,19 +1,18 @@
 import 'package:chopper/chopper.dart';
 
-import '../models/BlogPostModel.dart';
-
 part 'BlogPostApiService.chopper.dart';
 
 @ChopperApi(baseUrl: '/posts')
 abstract class BlogPostApiService extends ChopperService {
   @Get()
-  Future<Response<BlogPostsModel>> getBlogPosts();
+  Future<Response> getBlogPosts();
 
   @Get(path: '/{id}')
-  Future<Response<BlogPostsModel>> getBlogPost(@Path('id') int id);
+  Future<Response> getBlogPost(@Path('id') int id);
 
   @Post()
-  Future<Response<BlogPostsModel>> postBlogPost(
+  @FactoryConverter(request: FormUrlEncodedConverter.requestFactory)
+  Future<Response> postBlogPost(
     @Body() Map<String, dynamic> body,
   );
 
@@ -22,6 +21,10 @@ abstract class BlogPostApiService extends ChopperService {
       baseUrl: 'https://jsonplaceholder.typicode.com',
       services: [_$BlogPostApiService()],
       converter: JsonConverter(),
+      interceptors: [
+        HeadersInterceptor({'Cache-Control': 'no-cache'}),
+        HttpLoggingInterceptor()
+      ],
     );
     return _$BlogPostApiService(client);
   }

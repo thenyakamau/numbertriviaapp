@@ -21,11 +21,12 @@ class BlogPostRepositoryImpl extends BlogPostRepository {
   });
 
   @override
-  Future<Either<Failure, BlogPostApi>> getPosts() async {
+  Future<Either<Failure, List<BlogPostApi>>> getPosts() async {
     if (await networkInfo.isConnected) {
       try {
         final remoteBlog = await remoteDataSource.getBlogPosts();
         localDataSource.cacheBlogPosts(remoteBlog);
+        print(remoteBlog);
         return Right(remoteBlog);
       } on ServerException {
         return Left(ServerFailure());

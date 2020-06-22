@@ -27,7 +27,7 @@ class BlogpostapiblocBloc
   ) async* {
     if (event is GetBlogPosts) {
       yield BlogPostLoadingState();
-      print("something");
+
       final blogPostsEither = await getAllBlogPosts(NoParams());
       yield* blogPostsEither.fold(
         (failure) async* {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:number_trivia/features/domain/entities/BlogPostApi.dart';
 
 import '../../../injection_container.dart';
 import '../bloc/blogPostApiBloc/blogpostapibloc_bloc.dart';
@@ -24,7 +25,6 @@ class _BlogPageState extends State<BlogPage> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     return Stack(
       children: <Widget>[
         Container(
@@ -35,17 +35,19 @@ class _BlogPageState extends State<BlogPage> {
                 if (state is BlogpostapiblocInitial) {
                   return Container();
                 } else if (state is BlogPostLoadingState) {
-                  return LoadingWidget(height: height);
-                } else if (state is BlogPostLoadedState) {
-                  return Center(
-                    child: Text(state.blogPostApi.body),
+                  return Container(
+                    height: MediaQuery.of(context).size.height,
+                    child: ShimmerList(),
                   );
+                } else if (state is BlogPostLoadedState) {
+                  final posts = state.blogPostApi;
+                  return PostsListsBuilder(posts: posts);
                 } else if (state is BlogPostErrorState) {
                   return Center(
                     child: Text(state.message),
                   );
                 } else {
-                  return null;
+                  return Container(color: Colors.white);
                 }
               },
             ),

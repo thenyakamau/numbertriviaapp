@@ -17,24 +17,25 @@ class _$BlogPostApiService extends BlogPostApiService {
   final definitionType = BlogPostApiService;
 
   @override
-  Future<Response<BlogPostsModel>> getBlogPosts() {
+  Future<Response<dynamic>> getBlogPosts() {
     final $url = '/posts';
     final $request = Request('GET', $url, client.baseUrl);
-    return client.send<BlogPostsModel, BlogPostsModel>($request);
+    return client.send<dynamic, dynamic>($request);
   }
 
   @override
-  Future<Response<BlogPostsModel>> getBlogPost(int id) {
+  Future<Response<dynamic>> getBlogPost(int id) {
     final $url = '/posts/$id';
     final $request = Request('GET', $url, client.baseUrl);
-    return client.send<BlogPostsModel, BlogPostsModel>($request);
+    return client.send<dynamic, dynamic>($request);
   }
 
   @override
-  Future<Response<BlogPostsModel>> postBlogPost(Map<String, dynamic> body) {
+  Future<Response<dynamic>> postBlogPost(Map<String, dynamic> body) {
     final $url = '/posts';
     final $body = body;
     final $request = Request('POST', $url, client.baseUrl, body: $body);
-    return client.send<BlogPostsModel, BlogPostsModel>($request);
+    return client.send<dynamic, dynamic>($request,
+        requestConverter: FormUrlEncodedConverter.requestFactory);
   }
 }

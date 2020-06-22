@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_stetho/flutter_stetho.dart';
+import 'package:logging/logging.dart';
 
 import 'core/routes/RoutesGenerator.dart';
 import 'injection_container.dart' as di;
@@ -7,8 +7,15 @@ import 'injection_container.dart' as di;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
-  Stetho.initialize();
+  _setUpLogging();
   runApp(MyApp());
+}
+
+void _setUpLogging() {
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((event) {
+    print('${event.level.name}:${event.time}:${event.message}');
+  });
 }
 
 class MyApp extends StatelessWidget {
