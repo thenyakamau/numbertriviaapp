@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:number_trivia/features/domain/entities/BlogPostApi.dart';
 
 import '../../../injection_container.dart';
 import '../bloc/blogPostApiBloc/blogpostapibloc_bloc.dart';
@@ -23,6 +22,10 @@ class _BlogPageState extends State<BlogPage> {
     super.initState();
   }
 
+  Future<void> refreshPosts() async {
+    return bloc.add(GetBlogPosts());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -41,7 +44,30 @@ class _BlogPageState extends State<BlogPage> {
                   );
                 } else if (state is BlogPostLoadedState) {
                   final posts = state.blogPostApi;
-                  return PostsListsBuilder(posts: posts);
+                  return SingleChildScrollView(
+                    child: RefreshIndicator(
+                      onRefresh: () => refreshPosts(),
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            "Pull to refresh",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16,
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Container(
+                            height: MediaQuery.of(context).size.height,
+                            width: double.infinity,
+                            child: PostsListsBuilder(posts: posts),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
                 } else if (state is BlogPostErrorState) {
                   return Center(
                     child: Text(state.message),
