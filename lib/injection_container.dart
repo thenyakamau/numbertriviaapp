@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/network/NetworkInfo.dart';
 import 'core/utils/InputConverter.dart';
+import 'database/NumberTriviaDatabase.dart';
 import 'features/data/datasources/BlogPostApiService.dart';
 import 'features/data/datasources/BlogPostLocalDataSource.dart';
 import 'features/data/datasources/BlogPostRemoteDataSource.dart';
@@ -38,6 +39,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => prefs);
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => DataConnectionChecker());
+  sl.registerLazySingleton(() => NumberTriviaDataBase().blogPostsDao);
 }
 
 void _initNumberTrivia() {
@@ -91,6 +93,6 @@ void _initializeBlogPosts() {
     () => BlogPostRemoteDataSourceImpl(blogPostApiService: sl()),
   );
   sl.registerLazySingleton<BlogPostLocalDataSource>(
-    () => BlogPostLocalDataSorceImpl(sharedPreferences: sl()),
+    () => BlogPostLocalDataSorceImpl(postsDao: sl()),
   );
 }

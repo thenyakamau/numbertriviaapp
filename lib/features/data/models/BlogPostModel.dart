@@ -1,6 +1,11 @@
-import 'package:number_trivia/features/domain/entities/BlogPostApi.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
+import '../../domain/entities/BlogPostApi.dart';
+
+part 'BlogPostModel.g.dart';
+
+@JsonSerializable()
 class BlogPostsModel extends BlogPostApi {
   final int userId;
   final int id;
@@ -14,21 +19,8 @@ class BlogPostsModel extends BlogPostApi {
     @required this.body,
   }) : super(userId: userId, id: id, title: title, body: body);
 
-  factory BlogPostsModel.fromJson(Map<String, dynamic> json) {
-    return BlogPostsModel(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
-      body: json['body'],
-    );
-  }
+  factory BlogPostsModel.fromJson(Map<String, dynamic> json) =>
+      _$BlogPostsModelFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userId'] = this.userId;
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['body'] = this.body;
-    return data;
-  }
+  Map<String, dynamic> toJson() => _$BlogPostsModelToJson(this);
 }

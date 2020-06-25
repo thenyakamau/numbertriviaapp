@@ -70,7 +70,17 @@ class _BlogPageState extends State<BlogPage> {
                   );
                 } else if (state is BlogPostErrorState) {
                   return Center(
-                    child: Text(state.message),
+                    child: Column(
+                      children: <Widget>[
+                        Text(state.message),
+                        SizedBox(height: 10),
+                        RaisedButton(
+                          onPressed: () => refreshPosts(),
+                          color: Theme.of(context).accentColor,
+                          child: Text("Refresh"),
+                        )
+                      ],
+                    ),
                   );
                 } else {
                   return Container(color: Colors.white);

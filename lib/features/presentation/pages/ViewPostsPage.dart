@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:number_trivia/features/domain/entities/BlogPostApi.dart';
+
+import '../../domain/entities/BlogPostApi.dart';
 
 class ViewPostsPage extends StatelessWidget {
   const ViewPostsPage({Key key, @required this.post}) : super(key: key);
